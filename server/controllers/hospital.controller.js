@@ -27,4 +27,27 @@ function list(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { list, load, get }
+/**
+ * Create new hospital
+ * @returns {Hospital}
+ */
+function createOrUpdate(req, res, next) {
+  const query = { 'id': req.body.id }
+  Hospital.findOneAndUpdate(query, req.body, { upsert: true })
+    .then(savedHospital => savedHospital ? 
+      res.json(savedHospital) : res.json({message : "create new hospital success"}))
+    .catch(e => next(e));
+}
+
+/**
+ * Delete user.
+ * @returns {User}
+ */
+function remove(req, res, next) {
+  const hospital = req.hospital;
+  hospital.remove()
+    .then(deletedHospital => res.json(deletedHospital))
+    .catch(e => next(e));
+}
+
+export default { list, load, get, createOrUpdate, remove }
