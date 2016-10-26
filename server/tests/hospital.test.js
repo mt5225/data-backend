@@ -119,7 +119,6 @@ describe('## Hospital APIs', () => {
                 .get(`/api/hospitals/${hospitalNew.id}`)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    console.log(res.body);
                     expect(res.body.hospital).to.equal('worst hospital ever');
                     expect(res.body.rating).to.equal(250);
                     done();
