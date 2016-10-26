@@ -4,7 +4,7 @@ import BookingRecord from '../models/record.model';
  * Load booking records by day range
  */
 function getRecordByDayRange(req, res, next) {
-    const days = parseInt(req.param('range'), 10)
+    const days = parseInt(req.params.range, 10)
     BookingRecord.getRecordByRange(days)
         .then((records) => {
             res.json(records);
@@ -36,7 +36,7 @@ function getOne(req, res) {
  * Get record by UUID
  */
 function getByUUID(req, res, next) {
-    const uuid = req.param('uuid')
+    const uuid = req.params.uuid
     BookingRecord.findOne({ UUID: uuid })
         .then((record) => {
             res.json(record)
@@ -48,13 +48,26 @@ function getByUUID(req, res, next) {
  * Update record with status and/or commands
  */
 function updateRecord(req, res, next) {
-    const uuid = req.param('uuid')
-    const query = {'UUID': uid}
+    const uuid = req.params.uuid
+    const query = {'UUID': uuid}
     const update = {
         Status: req.body.status,
-        Comments: req.body.comments,
     }
-    BookingRecord.findOne( query, update, {upset: true})
+    BookingRecord.findOneAndUpdate( query, update, {upsert: false})
+        .then((record) => {
+             res.json(record)
+        })
+        .catch(e => next(e))
+}
+
+/**
+ * Update record with status and/or commands
+ */
+function addComment(req, res, next) {
+    const uuid = req.params.uuid
+    const query = {'UUID': uuid}
+    const comment = req.body
+    BookingRecord.findOneAndUpdate( query, {$push: {Comments: comment}}, {upsert: true})
         .then((record) => {
              res.json(record)
         })
@@ -62,4 +75,4 @@ function updateRecord(req, res, next) {
 }
 
 
-export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord}
+export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment}
