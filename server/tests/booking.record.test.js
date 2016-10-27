@@ -99,7 +99,7 @@ describe('## Booking Record APIs', () => {
                 .get('/api/bookingrecords/records/' + update_uuid)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.Comments).to.have.length.above(2)
+                    expect(res.body.Comments).to.have.length.above(0)
                     done();
                 })
                 .catch(done);
