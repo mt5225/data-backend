@@ -24,4 +24,5 @@ router.use('/bookingrecords', bookingRecordRoute);
 // mount auth routes at /auth
 router.use('/auth', authRoutes);
 
+
 export default router

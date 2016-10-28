@@ -132,4 +132,17 @@ describe('## Booking Record APIs', () => {
                 .catch(done);
         });
     });
+
+    describe('# GET /api/bookingrecords/syncstatus', () => {
+        it('should return OK', (done) => {
+            request(app)
+                .get('/api/bookingrecords/syncstatus')
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    expect(res.body.total).to.be.above(10)
+                    done();
+                })
+                .catch(done);
+        });
+    });
 });

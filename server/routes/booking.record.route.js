@@ -19,6 +19,9 @@ router.route('/records/:uuid/comments')
 router.route('/records/:uuid/checkout')
   .post(bookingRecordCtrl.setCheckout)
 
+router.route('/syncstatus')
+  .get(bookingRecordCtrl.getSyncStatus)
+
 /** Load record when API with recordId route parameter is hit */
 router.param('recordId', bookingRecordCtrl.load)
 

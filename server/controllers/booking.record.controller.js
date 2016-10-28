@@ -1,4 +1,5 @@
 import BookingRecord from '../models/record.model';
+import OP from '../models/op.model';
 
 /**
  * Load booking records by day range
@@ -90,4 +91,16 @@ function setCheckout(req, res, next) {
         .catch(e => next(e))
 }
 
-export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment, setCheckout}
+/**
+ * get lastest op log
+ */
+function getSyncStatus(req, res, next) {
+    OP.findOne()
+        .sort({ createdAt: -1 })
+        .then((record) => {
+           res.json(record)
+        })
+        .catch(e => next(e))
+}
+
+export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment, setCheckout, getSyncStatus}
