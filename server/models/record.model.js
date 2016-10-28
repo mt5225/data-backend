@@ -56,6 +56,10 @@ const RecordSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    CheckoutTime: {
+        type: String,
+        default: '12:00 PM',
+    },
     Comments: [{
          createdAt: {
             type: Date,

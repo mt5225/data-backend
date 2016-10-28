@@ -74,5 +74,20 @@ function addComment(req, res, next) {
         .catch(e => next(e))
 }
 
+/**
+ * set checkout time setCheckout
+ */
+function setCheckout(req, res, next) {
+    const uuid = req.params.uuid
+    const query = {'UUID': uuid}
+    const update = {
+        CheckoutTime: req.body.checkout,
+    }
+    BookingRecord.findOneAndUpdate( query, update, {upsert: false})
+        .then((record) => {
+             res.json(record)
+        })
+        .catch(e => next(e))
+}
 
-export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment}
+export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment, setCheckout}

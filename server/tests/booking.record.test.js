@@ -20,11 +20,15 @@ after((done) => {
 describe('## Booking Record APIs', () => {
     const update_uuid = '1f93deb0-9b08-11e6-9f33-a24fc0d9649c'
     const update_status = {
-        status: 'clean',
+        status: 'cleaned',
     }
     const add_comment = {
         content: "kknd",
         author: "jerry",
+    }
+
+    const set_checkout = {
+        checkout: "10:00 AM",
     }
 
     describe('# GET /api/bookingrecords/days with day range', () => {
@@ -60,8 +64,31 @@ describe('## Booking Record APIs', () => {
         });
     });
 
-    describe('# POST /api/bookingrecords/records/' + update_uuid, () => {
+    describe('# POST /api/bookingrecords/records/' + update_uuid + '/checkout', () => {
         it('should update clean status booking record by UUID ' + update_uuid, (done) => {
+            request(app)
+                .post('/api/bookingrecords/records/' + update_uuid + '/checkout')
+                .send(set_checkout)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    done();
+                })
+                .catch(done);
+        });
+        it('should get updated ', (done) => {
+            request(app)
+                .get('/api/bookingrecords/records/' + update_uuid)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    expect(res.body.CheckoutTime).to.equal('10:00 AM');
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+    describe('# POST /api/bookingrecords/records/' + update_uuid, () => {
+        it('should update checkout time in  booking record by UUID ' + update_uuid, (done) => {
             request(app)
                 .post('/api/bookingrecords/records/' + update_uuid)
                 .send(update_status)
@@ -76,7 +103,7 @@ describe('## Booking Record APIs', () => {
                 .get('/api/bookingrecords/records/' + update_uuid)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.Status).to.equal('clean');
+                    expect(res.body.Status).to.equal('cleaned');
                     done();
                 })
                 .catch(done);
