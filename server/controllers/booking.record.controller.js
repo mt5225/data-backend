@@ -14,6 +14,18 @@ function getRecordByDayRange(req, res, next) {
 }
 
 /**
+ * Load booking records by day range for checkin
+ */
+function getRecordByDayRangeCheckIn(req, res, next) {
+    const days = parseInt(req.params.range, 10)
+    BookingRecord.getRecordByRangeCheckIn(days)
+        .then((records) => {
+            res.json(records);
+        })
+        .catch(e => next(e));
+}
+
+/**
  * Load user and append to req.
  */
 function load(req, res, next, id) {
@@ -50,13 +62,13 @@ function getByUUID(req, res, next) {
  */
 function updateRecord(req, res, next) {
     const uuid = req.params.uuid
-    const query = {'UUID': uuid}
+    const query = { 'UUID': uuid }
     const update = {
         Status: req.body.status,
     }
-    BookingRecord.findOneAndUpdate( query, update, {upsert: false})
+    BookingRecord.findOneAndUpdate(query, update, { upsert: false })
         .then((record) => {
-             res.json(record)
+            res.json(record)
         })
         .catch(e => next(e))
 }
@@ -66,11 +78,11 @@ function updateRecord(req, res, next) {
  */
 function addComment(req, res, next) {
     const uuid = req.params.uuid
-    const query = {'UUID': uuid}
+    const query = { 'UUID': uuid }
     const comment = req.body
-    BookingRecord.findOneAndUpdate( query, {$push: {Comments: comment}}, {upsert: true})
+    BookingRecord.findOneAndUpdate(query, { $push: { Comments: comment } }, { upsert: true })
         .then((record) => {
-             res.json(record)
+            res.json(record)
         })
         .catch(e => next(e))
 }
@@ -80,13 +92,13 @@ function addComment(req, res, next) {
  */
 function setCheckout(req, res, next) {
     const uuid = req.params.uuid
-    const query = {'UUID': uuid}
+    const query = { 'UUID': uuid }
     const update = {
         CheckoutTime: req.body.checkout,
     }
-    BookingRecord.findOneAndUpdate( query, update, {upsert: false})
+    BookingRecord.findOneAndUpdate(query, update, { upsert: false })
         .then((record) => {
-             res.json(record)
+            res.json(record)
         })
         .catch(e => next(e))
 }
@@ -98,9 +110,18 @@ function getSyncStatus(req, res, next) {
     OP.findOne()
         .sort({ createdAt: -1 })
         .then((record) => {
-           res.json(record)
+            res.json(record)
         })
         .catch(e => next(e))
 }
 
-export default { getRecordByDayRange, getOne, load, getByUUID,  updateRecord, addComment, setCheckout, getSyncStatus}
+export default {
+    getRecordByDayRange,
+    getOne,
+    load,
+    getByUUID,
+    updateRecord,
+    addComment, setCheckout,
+    getSyncStatus,
+    getRecordByDayRangeCheckIn,
+}

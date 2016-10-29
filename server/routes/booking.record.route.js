@@ -6,6 +6,9 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route('/days/:range')
   .get(bookingRecordCtrl.getRecordByDayRange)
 
+router.route('/dayscheckin/:range')
+  .get(bookingRecordCtrl.getRecordByDayRangeCheckIn)
+
 router.route('/getone/:recordId')
   .get(bookingRecordCtrl.getOne)
 

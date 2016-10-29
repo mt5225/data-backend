@@ -101,7 +101,20 @@ RecordSchema.statics = {
                 CheckOut: { $lte: end_day }
             }]
             )
-            .sort({ createdAt: -1 })
+            .sort({ CheckOut: 'ascending' })
+            .exec();
+    },
+    getRecordByRangeCheckIn(days) {
+        const [start_day, end_day] = UTIL.getDateRange(days)
+        return this.find()
+            .and(
+            [{
+                CheckIn: { $gte: start_day }
+            }, {
+                CheckIn: { $lte: end_day }
+            }]
+            )
+            .sort({ CheckIn: 'ascending' })
             .exec();
     },
 };

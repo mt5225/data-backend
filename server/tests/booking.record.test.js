@@ -31,7 +31,7 @@ describe('## Booking Record APIs', () => {
         checkout: "10:00 AM",
     }
 
-    describe('# GET /api/bookingrecords/days with day range', () => {
+    describe('# GET /api/bookingrecords/days with day range for checkout', () => {
         it('should get booking records in past 4 days with details', (done) => {
             request(app)
                 .get('/api/bookingrecords/days/-4')
@@ -44,6 +44,18 @@ describe('## Booking Record APIs', () => {
         it('should get booking records in today and next 3 days with details', (done) => {
             request(app)
                 .get('/api/bookingrecords/days/3')
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+    describe('# GET /api/bookingrecords/days with day range for checkin', () => {
+        it('should get booking records in today and next 3 days with details', (done) => {
+            request(app)
+                .get('/api/bookingrecords/dayscheckin/3')
                 .expect(httpStatus.OK)
                 .then((res) => {
                     done();
