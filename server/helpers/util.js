@@ -21,7 +21,9 @@ function getWeekDayPair(date) {
 
 function getDateRange(days) {
     let start_day = new Date()
+    start_day.setHours(0,0,0,0)
     let end_day = new Date()
+    end_day.setHours(0,0,0,0)
     if (days < 0) {
         start_day.setDate(start_day.getDate() + days)
         end_day.setDate(end_day.getDate() - 1)

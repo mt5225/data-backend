@@ -115,12 +115,26 @@ const HospitalSchema = new mongoose.Schema({
             required: true
         },
     },
+    main_image: {
+        type: String,
+        required: true,
+        default: 'https://s3-us-west-1.amazonaws.com/uniroom/hospital/dummy_front.png'
+    },
+    images: {
+        type: Array,
+        required: true,
+        default: ['https://s3-us-west-1.amazonaws.com/uniroom/hospital/dummy_detail.png']
+    },
     doctors: [DoctorSchema],
     cities: [CitySchema],
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    geo: {
+        type: String,
+        required: true
+    },
 });
 
 /**
