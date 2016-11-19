@@ -156,8 +156,8 @@ HospitalSchema.method({
  */
 HospitalSchema.statics = {
   /**
-   * Get hospital list
-   * @param {id} id - The id of user.
+   * Get hospital 
+   * @param {id} id - The id of hospital.
    * @returns {Promise<Hospital, APIError>}
    */
   get(id) {
@@ -173,8 +173,8 @@ HospitalSchema.statics = {
   },
 
   /**
-   * List users in descending order of 'createdAt' timestamp.
-   * Using _id:0 to avoid return _id field
+   * List hospitals in descending order of 'rating' .
+   * Using _id:0 to avoid return _id
    * @param {number} skip - Number of users to be skipped.
    * @param {number} limit - Limit number of users to be returned.
    * @returns {Promise<User[]>}

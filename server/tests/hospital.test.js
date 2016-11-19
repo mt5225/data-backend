@@ -138,7 +138,7 @@ describe('## Hospital APIs', () => {
         });
     });
 
-    describe('# DELETE /api/hospitals/', () => {
+    describe('# DELETE /api/hospitals/:hospitalsId', () => {
         it('should delete hospital', (done) => {
             request(app)
                 .delete(`/api/hospitals/${hospitalNew.id}`)

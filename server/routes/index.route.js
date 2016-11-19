@@ -15,10 +15,10 @@ router.get('/health-check', (req, res) =>
 // mount user routes at /users
 router.use('/users', userRoutes);
 
-// mount hospital routes at /users
+// mount hospital routes at /hospitals
 router.use('/hospitals', hospitalRoutes);
 
-// mount booking records routes at /users
+// mount booking records routes at /bookingrecords
 router.use('/bookingrecords', bookingRecordRoute);
 
 // mount auth routes at /auth

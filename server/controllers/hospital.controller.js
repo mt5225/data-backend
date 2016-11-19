@@ -17,6 +17,7 @@ function load(req, res, next, id) {
  * @returns {Hospital}
  */
 function get(req, res) {
+  console.log(req)
   return res.json(req.hospital)
 }
 
@@ -28,7 +29,7 @@ function list(req, res, next) {
 }
 
 /**
- * Create new hospital
+ * update hospital
  * @returns {Hospital}
  */
 function createOrUpdate(req, res, next) {
@@ -40,8 +41,8 @@ function createOrUpdate(req, res, next) {
 }
 
 /**
- * Delete user.
- * @returns {User}
+ * Delete hospital.
+ * @returns {Hospital}
  */
 function remove(req, res, next) {
   const hospital = req.hospital;
