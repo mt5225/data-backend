@@ -31,6 +31,10 @@ describe('## Booking Record APIs', () => {
         checkout: "10:00 AM",
     }
 
+    const set_checkin = {
+        checkin: "12:01 PM",
+    }
+
     describe('# GET /api/bookingrecords/days with day range for checkout', () => {
         it('should get booking records in past 4 days with details', (done) => {
             request(app)
@@ -77,7 +81,7 @@ describe('## Booking Record APIs', () => {
     });
 
     describe('# POST /api/bookingrecords/records/' + update_uuid + '/checkout', () => {
-        it('should update clean status booking record by UUID ' + update_uuid, (done) => {
+        it('should update checkout time of  booking record by UUID ' + update_uuid, (done) => {
             request(app)
                 .post('/api/bookingrecords/records/' + update_uuid + '/checkout')
                 .send(set_checkout)
@@ -93,6 +97,29 @@ describe('## Booking Record APIs', () => {
                 .expect(httpStatus.OK)
                 .then((res) => {
                     expect(res.body.CheckoutTime).to.equal('10:00 AM');
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+    describe('# POST /api/bookingrecords/records/' + update_uuid + '/checkin', () => {
+        it('should update checkout time of  booking record by UUID ' + update_uuid, (done) => {
+            request(app)
+                .post('/api/bookingrecords/records/' + update_uuid + '/checkin')
+                .send(set_checkin)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    done();
+                })
+                .catch(done);
+        });
+        it('should get updated ', (done) => {
+            request(app)
+                .get('/api/bookingrecords/records/' + update_uuid)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    expect(res.body.CheckinTime).to.equal('12:01 PM');
                     done();
                 })
                 .catch(done);

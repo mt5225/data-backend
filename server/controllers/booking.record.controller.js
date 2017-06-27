@@ -104,6 +104,22 @@ function setCheckout(req, res, next) {
 }
 
 /**
+ * set checkin time setCheckout
+ */
+function setCheckin(req, res, next) {
+    const uuid = req.params.uuid
+    const query = { 'UUID': uuid }
+    const update = {
+        CheckinTime: req.body.checkin,
+    }
+    BookingRecord.findOneAndUpdate(query, update, { upsert: false })
+        .then((record) => {
+            res.json(record)
+        })
+        .catch(e => next(e))
+}
+
+/**
  * get lastest op log
  */
 function getSyncStatus(req, res, next) {
@@ -121,7 +137,9 @@ export default {
     load,
     getByUUID,
     updateRecord,
-    addComment, setCheckout,
+    addComment, 
+    setCheckout,
+    setCheckin, 
     getSyncStatus,
     getRecordByDayRangeCheckIn,
 }

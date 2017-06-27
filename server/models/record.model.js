@@ -60,6 +60,10 @@ const RecordSchema = new mongoose.Schema({
         type: String,
         default: '12:00 PM',
     },
+    CheckinTime: {
+        type: String,
+        default: '03:00 PM',
+    },
     Comments: [{
          createdAt: {
             type: Date,

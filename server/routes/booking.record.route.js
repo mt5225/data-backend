@@ -22,6 +22,9 @@ router.route('/records/:uuid/comments')
 router.route('/records/:uuid/checkout')
   .post(bookingRecordCtrl.setCheckout)
 
+router.route('/records/:uuid/checkin')
+  .post(bookingRecordCtrl.setCheckin)
+
 router.route('/syncstatus')
   .get(bookingRecordCtrl.getSyncStatus)
 
